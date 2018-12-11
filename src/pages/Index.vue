@@ -71,6 +71,9 @@ export default {
           // this.color and this['color'] are equivalent
         }
       }
+    },
+    moveEnd: function (event, index) {
+      this.moving = false
     }
   }
 }
