@@ -1,13 +1,15 @@
 <template>
   <q-page
-    @mousemove.native="moveActive($event, 1)"
-    @mouseup.native="moveEnd($event,1)"
-    @mousedown.native="moveStart($event, 1)"
-    >
-    <movableBlock :ht="'100px'" :wd="'100px'" :color="color1" class="q-ma-md movable" id="block1"
+    class="row justify-start items-center">
+    <startBlock ref="startblock"></startBlock>
+    <movableBlock :ht="'100px'" :wd="'100px'" :color="color1"
+      @mousemove.native="moveActive($event, 1)"
+      @mouseup.native="moveEnd($event,1)"
+      @mousedown.native="moveStart($event, 1)"
       :style="{'left': x1 + 'px', 'top': y1 + 'px'}"
-      @mousedown.native="moveStart($event, 1)" ref="bloc1"></movableBlock>
-    <movableBlock :ht="'100px'" :wd="'100px'" :color="color2" class="q-ma-md movable"
+      ref="bloc1"
+      ></movableBlock>
+    <movableBlock :ht="'100px'" :wd="'100px'" :color="color2"
       :style="{'left': x2 + 'px', 'top': y2 + 'px'}"
       @mousedown.native="moveStart($event, 2)" @mouseup.native="moveEnd($event, 2)" @mousemove.native="moveActive($event, 2)" ref="bloc2"></movableBlock>
   </q-page>
@@ -15,36 +17,32 @@
 //moveActive($event, 1)
 //moveStartOnContainer($event)
 <style>
-.movable {
-  display: inline-block;
-  padding: 0px;
-  position: absolute;
-}
 </style>
 
 <script>
-import navbar from '../components/Navbar.vue'
 import movableBlock from '../components/moveableBlock.vue'
+import startBlock from '../components/startBlock.vue'
 
 export default {
   name: 'PageIndex',
   components: {
-    navbar,
-    movableBlock
+    movableBlock,
+    startBlock
   },
   data () {
     return {
-      x1: 200,
-      y1: 200,
-      x2: 400,
-      y2: 400,
+      x1: 100,
+      y1: 50,
+      x2: 600,
+      y2: 50,
       color1: 'blue',
-      color2: 'yellow',
+      color2: 'indigo',
       origcolor1: 'blue',
-      origcolor2: 'yellow',
+      origcolor2: 'indigo',
       initX: 0,
       initY: 0,
-      currentBlock: null
+      currentBlock: null,
+      canbemoved: false
     }
   },
   methods: {
@@ -76,16 +74,24 @@ export default {
         var boundBox1 = this.$refs.bloc1.$el.getBoundingClientRect()
         var boundBox2 = this.$refs.bloc2.$el.getBoundingClientRect()
 
-        var overlap = !(boundBox1.right < boundBox2.left ||
+        var incompatable = !(boundBox1.right < boundBox2.left ||
                         boundBox1.left > boundBox2.right ||
                         boundBox1.bottom < boundBox2.top ||
                         boundBox1.top > boundBox2.bottom)
 
-        if (overlap) {
+        var startBlockBox = this.$refs.startblock.$el.getBoundingClientRect()
+        var compatable = !((boundBox1.right < startBlockBox.left || startBlockBox.right < boundBox1.left) || (boundBox1.bottom < startBlockBox.top || boundBox1.top > startBlockBox.bottom))
+
+        if (incompatable) {
           this['x' + index] = this.initX
           this['y' + index] = this.initY
           this.moving = false
           this.color1 = 'red'
+        }
+
+        if (compatable) {
+          this['x' + index] = startBlockBox.right
+          this['y' + index] = startBlockBox.top - 100
         }
       }
     },
