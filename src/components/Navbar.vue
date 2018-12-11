@@ -1,5 +1,5 @@
 <template>
-  <div id="q-app">
+  <div>
       <p>Some text</p>
   </div>
 </template>
