@@ -1,14 +1,19 @@
 <template>
-  <q-page>
-    <movableBlock :ht="'100px'" :wd="'100px'" :color="color1" class="q-ma-md movable"
+  <q-page
+    @mousemove.native="moveActive($event, 1)"
+    @mouseup.native="moveEnd($event,1)"
+    @mousedown.native="moveStart($event, 1)"
+    >
+    <movableBlock :ht="'100px'" :wd="'100px'" :color="color1" class="q-ma-md movable" id="block1"
       :style="{'left': x1 + 'px', 'top': y1 + 'px'}"
-      @mousedown.native="moveStart($event, 1)" @mouseup.native="moveEnd($event,1)" @mousemove.native="moveActive($event, 1)" ref="bloc1"></movableBlock>
+      @mousedown.native="moveStart($event, 1)" ref="bloc1"></movableBlock>
     <movableBlock :ht="'100px'" :wd="'100px'" :color="color2" class="q-ma-md movable"
       :style="{'left': x2 + 'px', 'top': y2 + 'px'}"
       @mousedown.native="moveStart($event, 2)" @mouseup.native="moveEnd($event, 2)" @mousemove.native="moveActive($event, 2)" ref="bloc2"></movableBlock>
   </q-page>
 </template>
-
+//moveActive($event, 1)
+//moveStartOnContainer($event)
 <style>
 .movable {
   display: inline-block;
@@ -36,18 +41,30 @@ export default {
       color1: 'blue',
       color2: 'yellow',
       origcolor1: 'blue',
-      origcolor2: 'yellow'
+      origcolor2: 'yellow',
+      initX: 0,
+      initY: 0,
+      currentBlock: null
     }
   },
   methods: {
-    toggleItem: function () {
-      this.show = !this.show
+    moveStartOnContainer: function (event) {
+      this.initX = event.offsetX
+      this.initY = event.offsetY
+      this.moving = true
+      this.currentBlock = event.$el
+      this.trackElement(event)
     },
-    receiveData: function (e) {
-      this.blankData = e
+    trackElement: function (event) {
+      if (this.moving) {
+        console.log(event)
+      }
     },
     moveStart: function (event, index) {
       this.moving = true
+      this.initX = event.pageX
+      this.initY = event.pageY
+      console.log(event)
       this['offsetInitX' + index] = event.offsetX
       this['offsetInitY' + index] = event.offsetY
     },
@@ -65,14 +82,16 @@ export default {
                         boundBox1.top > boundBox2.bottom)
 
         if (overlap) {
-          this['color' + index] = 'green'
-        } else {
-          this['color' + index] = this['origcolor' + index]
-          // this.color and this['color'] are equivalent
+          this['x' + index] = this.initX
+          this['y' + index] = this.initY
+          this.moving = false
+          this.color1 = 'red'
         }
       }
     },
     moveEnd: function (event, index) {
+      this.initX = event.pageX
+      this.initY = event.page
       this.moving = false
     }
   }

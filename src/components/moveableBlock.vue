@@ -11,11 +11,6 @@ export default {
     return {
       dat: 'childData'
     }
-  },
-  methods: {
-    function () {
-      this.$emit('emitted', this.dat)
-    }
   }
 }
 </script>
