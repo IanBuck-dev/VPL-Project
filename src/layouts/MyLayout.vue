@@ -3,21 +3,29 @@
     <q-layout-drawer
       row
       side="right"
-      v-model="leftDrawerOpen"
+      v-model="rightDrawerOpen"
       :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null"
       class="layout-drawer"
     >
       <previewWindow></previewWindow>
-      <q-collapsible indent label="Menu">
-        <p>Some text</p>
+      <q-collapsible indent label="Pre-Processing">
+        <q-item v-close-overlay @click.native="doSomething">Edge Extraction</q-item>
+        <q-item v-close-overlay @click.native="doSomething">Denoising</q-item>
+        <q-item v-close-overlay @click.native="doSomething">Blur Reduction</q-item>
+        <q-item v-close-overlay @click.native="doSomething">Sharpening</q-item>
+        <q-item v-close-overlay @click.native="doSomething">Brightness</q-item>
+        <q-item v-close-overlay @click.native="doSomething">Converting Color Spaces</q-item>
       </q-collapsible>
       <q-item-separator />
-      <q-collapsible indent label="Menu">
-        <p>Some text</p>
+      <q-collapsible indent label="Line Segmentation">
+        <q-item v-close-overlay @click.native="doSomething">Text Split</q-item>
+        <q-item v-close-overlay @click.native="doSomething">Picture Split</q-item>
       </q-collapsible>
       <q-item-separator />
-      <q-collapsible indent label="Menu">
-        <p>Some text</p>
+      <q-collapsible indent label="Optical Character Recognition">
+        <q-item v-close-overlay @click.native="doSomething">Word and Character Processing</q-item>
+        <q-item v-close-overlay @click.native="doSomething">Skew</q-item>
+        <q-item v-close-overlay @click.native="doSomething">SIFT</q-item>
       </q-collapsible>
       <q-btn
         self-end
@@ -33,43 +41,22 @@
         :glossy="$q.theme === 'mat'"
         :inverted="$q.theme === 'ios'"
       >
-        <q-btn
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-        >
-          <q-icon name="menu" />
-        </q-btn>
 
         <q-toolbar-title>
           VPL-App
           <div slot="subtitle">Designed by us</div>
         </q-toolbar-title>
+        <q-btn
+          flat
+          dense
+          round
+          @click="rightDrawerOpen = !rightDrawerOpen"
+          aria-label="Menu"
+        >
+          <q-icon name="menu" />
+        </q-btn>
       </q-toolbar>
     </q-layout-header>
-
-    <q-toolbar
-        color="primary"
-        :glossy="$q.theme === 'mat'"
-        :inverted="$q.theme === 'ios'"
-      >
-        <q-btn
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-        >
-          <q-icon name="menu" />
-        </q-btn>
-
-        <q-toolbar-title>
-          VPL-App
-          <div slot="subtitle">Designed by us</div>
-        </q-toolbar-title>
-      </q-toolbar>
 
     <q-page-container>
       <router-view />
@@ -88,7 +75,7 @@ export default {
   },
   data () {
     return {
-      leftDrawerOpen: this.$q.platform.is.desktop
+      rightDrawerOpen: this.$q.platform.is.desktop
     }
   },
   methods: {
@@ -98,6 +85,10 @@ export default {
 </script>
 
 <style>
+.q-toolbar-title {
+  text-align: center;
+}
+
 .layout-drawer {
   display: grid;
 }
