@@ -1,8 +1,13 @@
 <template>
   <div id="q-app">
-      <div class="previewindowborder">
-        <p>Preview Window</p>
-      </div>
+    <div class="previewindowborder">
+      <img src="../../assets/mark-rasmuson-108148-unsplash.jpg" v-bind:style="{width: setWidth? $(setWidth)+'px' : '200px'}">
+    </div>
+    <q-slider
+      v-model="setWidth"
+      @input="val => { setWidth = val }"
+      :min="0" :max="10" :step="2" label :label-value="`${setWidth}px`" snap
+    />
   </div>
 </template>
 
@@ -21,5 +26,6 @@ export default {
   display: grid;
   align-items: center;
   justify-items: center;
+  overflow: hidden;
 }
 </style>
