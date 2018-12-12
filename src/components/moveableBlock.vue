@@ -1,5 +1,5 @@
 <template>
-  <div class="movable" :style="{'height': ht, 'width': wd, 'background': color}">Movable Block</div>
+  <div class="movable" :style="{'height': ht, 'width': wd, 'background': color}"></div>
 </template>
 
 <script>
