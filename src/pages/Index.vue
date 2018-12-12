@@ -1,7 +1,9 @@
 <template>
   <q-page
-    class="row justify-start items-center">
-    <startBlock @mouseup.native="moveEnd($event)" ref="startblock"></startBlock>
+    @mouseup.native="moveEnd($event)"
+    class="row justify-between items-center">
+    <startBlock ref="startblock"></startBlock>
+    <endBlock ref="endblock"></endBlock>
     <movableBlock :ht="'100px'" :wd="'100px'" :color="color1"
       @mousemove.native="moveActive($event, 1)"
       @mouseup.native="moveEnd($event)"
@@ -21,12 +23,14 @@
 <script>
 import movableBlock from '../components/moveableBlock.vue'
 import startBlock from '../components/startBlock.vue'
+import endBlock from '../components/endBlock.vue'
 
 export default {
   name: 'PageIndex',
   components: {
     movableBlock,
-    startBlock
+    startBlock,
+    endBlock
   },
   data () {
     return {
@@ -79,7 +83,7 @@ export default {
         // will be made available for more kinds of blocks
         if (compatable) {
           this['x' + index] = startBlockBox.right
-          this['y' + index] = startBlockBox.top - 100
+          this['y' + index] = startBlockBox.top - 50
         }
       }
     },
