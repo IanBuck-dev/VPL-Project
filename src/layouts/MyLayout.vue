@@ -42,7 +42,7 @@
         :inverted="$q.theme === 'ios'"
         >
       <q-btn-group>
-        <q-btn-dropdown color="dark" label="Project">
+        <q-btn-dropdown color="dark" label="Project" class="q-mr-md">
           <!-- dropdown content goes here -->
           <q-list link>
             <q-item v-close-overlay>
@@ -80,7 +80,7 @@
             </q-item>
           </q-list>
         </q-btn-dropdown>
-        <q-btn-dropdown color="dark" label="Document">
+        <q-btn-dropdown color="dark" label="Document" class="q-mr-md">
           <!-- dropdown content goes here -->
           <q-list link>
             <q-item v-close-overlay>
@@ -110,7 +110,7 @@
             </q-item>
           </q-list>
         </q-btn-dropdown>
-        <q-btn-dropdown color="dark" label="Workspace">
+        <q-btn-dropdown color="dark" label="Workspace" class="q-mr-md">
           <!-- dropdown content goes here -->
           <q-list link>
             <q-item v-close-overlay>
@@ -170,7 +170,7 @@
             </q-item>
           </q-list>
         </q-btn-dropdown>
-          <q-btn-dropdown color="dark" label="History" />
+          <q-btn-dropdown color="dark" label="History" class="q-mr-md" />
       </q-btn-group>
       <q-toolbar-title>
           VPL-App
