@@ -9,23 +9,23 @@
     >
       <previewWindow></previewWindow>
       <q-collapsible indent label="Pre-Processing">
-        <q-item v-close-overlay @click.native="doSomething">Edge Extraction</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Denoising</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Blur Reduction</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Sharpening</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Brightness</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Converting Color Spaces</q-item>
+        <q-item v-close-overlay @click.native="createNewBlock">Edge Extraction</q-item>
+        <q-item v-close-overlay @click.native="createNewBlock">Denoising</q-item>
+        <q-item v-close-overlay @click.native="createNewBlock">Blur Reduction</q-item>
+        <q-item v-close-overlay @click.native="createNewBlock">Sharpening</q-item>
+        <q-item v-close-overlay @click.native="createNewBlock">Brightness</q-item>
+        <q-item v-close-overlay @click.native="createNewBlock">Converting Color Spaces</q-item>
       </q-collapsible>
       <q-item-separator />
       <q-collapsible indent label="Line Segmentation">
-        <q-item v-close-overlay @click.native="doSomething">Text Split</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Picture Split</q-item>
+        <q-item v-close-overlay @click.native="createNewBlock">Text Split</q-item>
+        <q-item v-close-overlay @click.native="createNewBlock">Picture Split</q-item>
       </q-collapsible>
       <q-item-separator />
       <q-collapsible indent label="Optical Character Recognition">
-        <q-item v-close-overlay @click.native="doSomething">Word and Character Processing</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Skew</q-item>
-        <q-item v-close-overlay @click.native="doSomething">SIFT</q-item>
+        <q-item v-close-overlay @click.native="createNewBlock">Word and Character Processing</q-item>
+        <q-item v-close-overlay @click.native="createNewBlock">Skew</q-item>
+        <q-item v-close-overlay @click.native="createNewBlock">SIFT</q-item>
       </q-collapsible>
       <q-btn
         self-end
@@ -58,7 +58,7 @@
       </q-toolbar>
     </q-layout-header>
 
-    <q-page-container>
+    <q-page-container ref="editor">
       <router-view />
     </q-page-container>
   </q-layout>
@@ -75,11 +75,16 @@ export default {
   },
   data () {
     return {
-      rightDrawerOpen: this.$q.platform.is.desktop
+      rightDrawerOpen: this.$q.platform.is.desktop,
+      typeOfComponent: 'block'
     }
   },
   methods: {
-    openURL
+    openURL,
+    createNewBlock: function () {
+      var editorwindow = document.getElementById('blockcontainer')
+      editorwindow.insertAdjacentHTML('beforeend', '<movableBlock class="movable" style="left:350px;top:50px;background-color:pink;height:100px;width:100px;">Some Text</movableBlock>')
+    }
   }
 }
 </script>
