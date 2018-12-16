@@ -9,23 +9,29 @@
     >
       <previewWindow></previewWindow>
       <q-collapsible indent label="Pre-Processing">
-        <q-item v-close-overlay @click.native="doSomething">Edge Extraction</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Denoising</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Blur Reduction</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Sharpening</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Brightness</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Converting Color Spaces</q-item>
+        <q-item @click.native="doSomething">Edge Extraction</q-item>
+        <q-item @click.native="doSomething">Denoising</q-item>
+        <q-item @click.native="doSomething">Blur Reduction</q-item>
+        <q-item @click.native="doSomething">Sharpening</q-item>
+        <q-item @click.native="doSomething">Brightness</q-item>
+        <q-item @click.native="doSomething">Converting Color Spaces</q-item>
       </q-collapsible>
       <q-item-separator />
       <q-collapsible indent label="Line Segmentation">
-        <q-item v-close-overlay @click.native="doSomething">Text Split</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Picture Split</q-item>
+        <q-item @click.native="doSomething">Text Split</q-item>
+        <q-item @click.native="doSomething">Picture Split</q-item>
       </q-collapsible>
       <q-item-separator />
       <q-collapsible indent label="Optical Character Recognition">
-        <q-item v-close-overlay @click.native="doSomething">Word and Character Processing</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Skew</q-item>
-        <q-item v-close-overlay @click.native="doSomething">SIFT</q-item>
+        <q-item @click.native="doSomething">Word and Character Processing</q-item>
+        <q-item @click.native="doSomething">Skew</q-item>
+        <q-item @click.native="doSomething">SIFT</q-item>
+      </q-collapsible>
+      <q-collapsible indent label="Scale-Invariant Feature Transform">
+        <q-item @click.native="doSomething">Scale-space Extrema Detection</q-item>
+        <q-item @click.native="doSomething">Keypoint Localization</q-item>
+        <q-item @click.native="doSomething">Orientation Assignment</q-item>
+        <q-item @click.native="doSomething">Keypoint Descriptor</q-item>
       </q-collapsible>
       <q-btn
         self-end

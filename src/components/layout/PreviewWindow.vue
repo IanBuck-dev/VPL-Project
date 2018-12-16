@@ -1,19 +1,24 @@
 <template>
   <div id="q-app">
     <div class="previewindowborder">
-      <img src="../../assets/mark-rasmuson-108148-unsplash.jpg" v-bind:style="{width: setWidth? $(setWidth)+'px' : '200px'}">
+      <img src="../../assets/mark-rasmuson-108148-unsplash.jpg" v-bind:style="{width: setWidth? setWidth+'px' : '200px'}">
     </div>
     <q-slider
-      v-model="setWidth"
+      :model="setWidth"
       @input="val => { setWidth = val }"
-      :min="0" :max="10" :step="2" label :label-value="`${setWidth}px`" snap
+      :min="200" :max="1000" :step="100" label :label-value="setWidth+'px'" snap
     />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'PreviewWindow'
+  name: 'PreviewWindow',
+  data () {
+    return {
+      setWidth: 200
+    }
+  }
 }
 </script>
 
