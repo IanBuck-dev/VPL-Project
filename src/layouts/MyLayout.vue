@@ -34,10 +34,10 @@
         <q-item @click.native="doSomething">Keypoint Descriptor</q-item>
       </q-collapsible>
       <q-collapsible indent label="Scale-Invariant Feature Transform">
-        <q-item v-close-overlay @click.native="doSomething">Scale-space Extrema Detection</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Keypoint Localization</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Orientation Assignment</q-item>
-        <q-item v-close-overlay @click.native="doSomething">Keypoint Descriptor</q-item>
+        <q-item @click.native="doSomething">Scale-space Extrema Detection</q-item>
+        <q-item @click.native="doSomething">Keypoint Localization</q-item>
+        <q-item @click.native="doSomething">Orientation Assignment</q-item>
+        <q-item @click.native="doSomething">Keypoint Descriptor</q-item>
       </q-collapsible>
       <q-btn
         self-end
