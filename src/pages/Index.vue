@@ -1,5 +1,6 @@
 <template>
   <q-page
+    id="blockcontainer"
     @mouseup.native="moveEnd($event)"
     class="row justify-between items-center">
     <startBlock ref="startblock"></startBlock>

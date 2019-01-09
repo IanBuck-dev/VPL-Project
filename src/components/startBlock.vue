@@ -10,6 +10,7 @@ export default {
 
 <style>
 .startBlock {
+    user-select: none;
     font-size: 25px;
     color: #fff;
     height: 100px;
