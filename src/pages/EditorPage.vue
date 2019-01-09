@@ -1,6 +1,14 @@
 <template>
   <q-page>
-     <block :key="block.id" v-for="block in blocks"></block>
+     <block
+      :key="block.id"
+      v-for="block in blocks"
+      :block="block"
+      :style="{'left': block.x + 'px', 'top': block.y + 'px'}"
+      @mousemove.native="moveActive($event, block.id)"
+      @mouseup.native="moveEnd($event, block.id)"
+      @mousedown.native="moveStart($event, block.id)"
+      ></block>
   </q-page>
 </template>
 
@@ -13,22 +21,46 @@ export default {
   },
   data () {
     return {
-      movableStartblock: {
-        id: 1,
-        name: 'Startblock',
-        x: 100,
-        y: 200
-      },
-      movableEndblock: {
-        id: 2,
-        name: 'Endblock',
-        x: 600,
-        y: 200
-      },
       blocks: [
-        this.movableStartblock,
-        this.movableEndblock
+        {
+          id: 1,
+          name: 'Startblock',
+          type: 1,
+          x: 100,
+          y: 200
+        },
+        {
+          id: 2,
+          name: 'Endblock',
+          type: 1,
+          x: 500,
+          y: 200
+        },
+        {
+          id: 3,
+          name: 'Random',
+          type: 1,
+          x: 300,
+          y: 200
+        }
       ]
+    }
+  },
+  methods: {
+    moveStart: function (event, index) {
+      this.moving = true
+      console.log(event)
+      console.log(index)
+    },
+    moveActive: function (event, index) {
+      if (this.moving) {
+        console.log(event)
+        this.blocks[index - 1].x = event.x - 50
+        this.blocks[index - 1].y = event.y - 100
+      }
+    },
+    moveEnd: function (event, index) {
+      this.moving = false
     }
   }
 }
