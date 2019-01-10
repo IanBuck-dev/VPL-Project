@@ -9,35 +9,35 @@
     >
       <previewWindow></previewWindow>
       <q-collapsible indent label="Pre-Processing">
-        <q-item @click.native="createNewBlock">Edge Extraction</q-item>
-        <q-item @click.native="createNewBlock">Denoising</q-item>
-        <q-item @click.native="createNewBlock">Blur Reduction</q-item>
-        <q-item @click.native="createNewBlock">Sharpening</q-item>
-        <q-item @click.native="createNewBlock">Brightness</q-item>
-        <q-item @click.native="createNewBlock">Converting Color Spaces</q-item>
+        <q-item @click.native="createNewBlock('Edge Extraction', 2)">Edge Extraction</q-item>
+        <q-item @click.native="createNewBlock('Denoising', 2)">Denoising</q-item>
+        <q-item @click.native="createNewBlock('Blur Reduction', 2)">Blur Reduction</q-item>
+        <q-item @click.native="createNewBlock('Sharpening', 2)">Sharpening</q-item>
+        <q-item @click.native="createNewBlock('Brightness', 2)">Brightness</q-item>
+        <q-item @click.native="createNewBlock('Converting Color Spaces', 2)">Converting Color Spaces</q-item>
       </q-collapsible>
       <q-item-separator />
       <q-collapsible indent label="Line Segmentation">
-        <q-item @click.native="createNewBlock">Text Split</q-item>
-        <q-item @click.native="createNewBlock">Picture Split</q-item>
+        <q-item @click.native="createNewBlock('Text Split', 3)">Text Split</q-item>
+        <q-item @click.native="createNewBlock('Picture Split', 3)">Picture Split</q-item>
       </q-collapsible>
       <q-item-separator />
       <q-collapsible indent label="Optical Character Recognition">
-        <q-item @click.native="createNewBlock">Word and Character Processing</q-item>
-        <q-item @click.native="createNewBlock">Skew</q-item>
-        <q-item @click.native="createNewBlock">SIFT</q-item>
+        <q-item @click.native="createNewBlock('Word and Char Processing', 4)">Word and Character Processing</q-item>
+        <q-item @click.native="createNewBlock('Skew', 4)">Skew</q-item>
+        <q-item @click.native="createNewBlock('SIFT', 4)">SIFT</q-item>
       </q-collapsible>
       <q-collapsible indent label="Scale-Invariant Feature Transform">
-        <q-item @click.native="createNewBlock">Scale-space Extrema Detection</q-item>
-        <q-item @click.native="createNewBlock">Keypoint Localization</q-item>
-        <q-item @click.native="createNewBlock">Orientation Assignment</q-item>
-        <q-item @click.native="createNewBlock">Keypoint Descriptor</q-item>
+        <q-item @click.native="createNewBlock('Scale-space Extrema Detection', 5)">Scale-space Extrema Detection</q-item>
+        <q-item @click.native="createNewBlock('Keypoint Localization', 5)">Keypoint Localization</q-item>
+        <q-item @click.native="createNewBlock('Orientation Assignment', 5)">Orientation Assignment</q-item>
+        <q-item @click.native="createNewBlock('Keypoint Descriptor', 5)">Keypoint Descriptor</q-item>
       </q-collapsible>
       <q-collapsible indent label="Scale-Invariant Feature Transform">
-        <q-item @click.native="createNewBlock">Scale-space Extrema Detection</q-item>
-        <q-item @click.native="createNewBlock">Keypoint Localization</q-item>
-        <q-item @click.native="createNewBlock">Orientation Assignment</q-item>
-        <q-item @click.native="createNewBlock">Keypoint Descriptor</q-item>
+        <q-item @click.native="createNewBlock('Scale-space Extrema Detection', 6)">Scale-space Extrema Detection</q-item>
+        <q-item @click.native="createNewBlock('Keypoint Localization', 6)">Keypoint Localization</q-item>
+        <q-item @click.native="createNewBlock('Orientation Assignment', 6)">Orientation Assignment</q-item>
+        <q-item @click.native="createNewBlock('Keypoint Descriptor', 6)">Keypoint Descriptor</q-item>
       </q-collapsible>
       <q-btn
         self-end
@@ -57,7 +57,7 @@
         <q-btn-dropdown color="dark" label="Project" class="q-mr-md">
           <!-- dropdown content goes here -->
           <q-list link>
-            <q-item v-close-overlay>
+            <q-item>
               <q-item-side icon="create_new_folder" inverted color="light" />
               <q-item-main>
                 <q-item-tile label>Start new project</q-item-tile>
@@ -65,7 +65,7 @@
               <q-item-side right icon="info" color="amber" />
             </q-item>
             <q-item-separator inset />
-                <q-item v-close-overlay>
+                <q-item>
               <q-item-side icon="folder" inverted color="light" />
               <q-item-main>
                 <q-item-tile label>Open project</q-item-tile>
@@ -73,7 +73,7 @@
               <q-item-side right icon="info" color="amber" />
             </q-item>
             <q-item-separator inset />
-            <q-item v-close-overlay>
+            <q-item>
               <q-item-side icon="save" inverted color="light" />
               <q-item-main>
                 <q-item-tile label>Save project</q-item-tile>
@@ -82,7 +82,7 @@
             </q-item>
             <q-item-separator inset />
             <q-list-header inset>Recent projects</q-list-header>
-            <q-item v-close-overlay>
+            <q-item>
               <q-item-side icon="access_time" inverted color="light"/>
               <q-item-main>
                 <q-item-tile label>Project_XYZ</q-item-tile>
@@ -95,7 +95,7 @@
         <q-btn-dropdown color="dark" label="Document" class="q-mr-md">
           <!-- dropdown content goes here -->
           <q-list link>
-            <q-item v-close-overlay>
+            <q-item>
               <q-item-side icon="note_add" inverted color="light" />
               <q-item-main>
                 <q-item-tile label>Import document</q-item-tile>
@@ -103,7 +103,7 @@
               <q-item-side right icon="info" color="amber" />
             </q-item>
             <q-item-separator inset />
-                <q-item v-close-overlay>
+                <q-item>
               <q-item-side icon="save_alt" inverted color="light" />
               <q-item-main>
                 <q-item-tile label>Export document</q-item-tile>
@@ -112,7 +112,7 @@
             </q-item>
             <q-item-separator inset />
             <q-list-header inset>Recently used documents</q-list-header>
-            <q-item v-close-overlay>
+            <q-item>
               <q-item-side icon="access_time" inverted color="light"/>
               <q-item-main>
                 <q-item-tile label>Document_XYZ</q-item-tile>
@@ -125,7 +125,7 @@
         <q-btn-dropdown color="dark" label="Workspace" class="q-mr-md">
           <!-- dropdown content goes here -->
           <q-list link>
-            <q-item v-close-overlay>
+            <q-item>
               <q-item-side icon="photo_size_select_small" inverted color="light" />
               <q-item-main>
                 <q-item-tile label>Select Area</q-item-tile>
@@ -133,7 +133,7 @@
               <q-item-side right icon="info" color="amber" />
             </q-item>
             <q-item-separator inset />
-                <q-item v-close-overlay>
+                <q-item>
               <q-item-side icon="rotate_right" inverted color="light" />
               <q-item-main>
                 <q-item-tile label>Rotate 90°</q-item-tile>
@@ -141,7 +141,7 @@
               <q-item-side right icon="info" color="amber" />
             </q-item>
             <q-item-separator inset />
-            <q-item v-close-overlay>
+            <q-item>
               <q-item-side icon="no_sim" inverted color="light" />
               <q-item-main>
                 <q-item-tile label>Cut</q-item-tile>
@@ -149,7 +149,7 @@
               <q-item-side right icon="info" color="amber" />
             </q-item>
             <q-item-separator inset />
-            <q-item v-close-overlay>
+            <q-item>
               <q-item-side icon="file_copy" inverted color="light" />
               <q-item-main>
                 <q-item-tile label>Copy</q-item-tile>
@@ -157,7 +157,7 @@
               <q-item-side right icon="info" color="amber" />
             </q-item>
             <q-item-separator inset />
-            <q-item v-close-overlay>
+            <q-item>
               <q-item-side icon="file_copy" inverted color="light" />
               <q-item-main>
                 <q-item-tile label>Paste</q-item-tile>
@@ -165,7 +165,7 @@
               <q-item-side right icon="info" color="amber" />
             </q-item>
             <q-item-separator inset />
-            <q-item v-close-overlay>
+            <q-item>
               <q-item-side icon="call_split" inverted color="light" />
               <q-item-main>
                 <q-item-tile label>Separate Page</q-item-tile>
@@ -173,7 +173,7 @@
               <q-item-side right icon="info" color="amber" />
             </q-item>
             <q-item-separator inset />
-            <q-item v-close-overlay>
+            <q-item>
               <q-item-side icon="merge_type" inverted color="light" />
               <q-item-main>
                 <q-item-tile label>Merge Pages</q-item-tile>
@@ -185,8 +185,8 @@
           <q-btn-dropdown color="dark" label="History" class="q-mr-md" />
       </q-btn-group>
       <q-toolbar-title>
-          VPL-App
-          <div slot="subtitle">Designed by us</div>
+          Wire©
+          <div slot="subtitle">Designed in Germany</div>
       </q-toolbar-title>
         <q-btn
           flat
@@ -223,9 +223,9 @@ export default {
   },
   methods: {
     openURL,
-    createNewBlock: function () {
-      var editorwindow = document.getElementById('blockcontainer')
-      editorwindow.insertAdjacentHTML('beforeend', '<movableBlock class="movable" style="left:350px;top:50px;background-color:pink;height:100px;width:100px;">Some Text</movableBlock>')
+    createNewBlock: function (name, type) {
+      this.$root.$emit('block-created', name, type)
+      console.log(name + ' ' + type)
     }
   }
 }

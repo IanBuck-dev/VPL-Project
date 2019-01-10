@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page v-on:block-created="createBlock(name, type)">
      <block
       :key="block.id"
       v-for="block in blocks"
@@ -44,8 +44,12 @@ export default {
           y: 200
         }
       ],
-      removeBlockTimeout: false
+      removeBlockTimeout: false,
+      counterForId: 4
     }
+  },
+  created () {
+    this.$root.$on('block-created', this.createBlock)
   },
   methods: {
     detectCollisions: function (block, index) {
@@ -60,7 +64,6 @@ export default {
         movingblock.y = block.y
         this.moving = false
       }
-      console.log(touching)
     },
     isTouching: function (block, index) {
       var movingblock = this.blocks[index - 1]
@@ -94,6 +97,18 @@ export default {
     },
     moveEnd: function (event, index) {
       this.moving = false
+    },
+    createBlock: function (name, type) {
+      var newBlock = {
+        id: this.counterForId,
+        name: name,
+        type: type,
+        x: 200,
+        y: 50
+      }
+      this.counterForId += 1
+      this.blocks.push(newBlock)
+      console.log(newBlock)
     }
   }
 }
