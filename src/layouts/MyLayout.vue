@@ -4,45 +4,41 @@
       row
       side="right"
       v-model="rightDrawerOpen"
-      :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null"
+      :content-class="$q.theme === 'mat' ? 'bg-grey-9' : null"
       class="layout-drawer"
     >
       <previewWindow></previewWindow>
-      <q-collapsible indent label="Pre-Processing">
-        <q-item @click.native="createNewBlock('Edge Extraction', 2)">Edge Extraction</q-item>
+      <div id="spacer" />
+      <q-collapsible group="drawerMenu" link icon="tune" label="Pre-Processing" dark>
+        <q-item @click.native="createNewBlock('Edge Extraction', 2)" >Edge Extraction</q-item>
         <q-item @click.native="createNewBlock('Denoising', 2)">Denoising</q-item>
         <q-item @click.native="createNewBlock('Blur Reduction', 2)">Blur Reduction</q-item>
         <q-item @click.native="createNewBlock('Sharpening', 2)">Sharpening</q-item>
         <q-item @click.native="createNewBlock('Brightness', 2)">Brightness</q-item>
         <q-item @click.native="createNewBlock('Converting Color Spaces', 2)">Converting Color Spaces</q-item>
       </q-collapsible>
-      <q-item-separator />
-      <q-collapsible indent label="Line Segmentation">
+      <q-item-separator class="separator" />
+      <q-collapsible icon="subject" group="drawerMenu" link dark indent label="Line Segmentation">
         <q-item @click.native="createNewBlock('Text Split', 3)">Text Split</q-item>
         <q-item @click.native="createNewBlock('Picture Split', 3)">Picture Split</q-item>
       </q-collapsible>
-      <q-item-separator />
-      <q-collapsible indent label="Optical Character Recognition">
+      <q-item-separator class="separator" />
+      <q-collapsible icon="visibility" group="drawerMenu" link dark indent label="Optical Character Recognition">
         <q-item @click.native="createNewBlock('Word and Char Processing', 4)">Word and Character Processing</q-item>
         <q-item @click.native="createNewBlock('Skew', 4)">Skew</q-item>
         <q-item @click.native="createNewBlock('SIFT', 4)">SIFT</q-item>
       </q-collapsible>
-      <q-collapsible indent label="Scale-Invariant Feature Transform">
+      <q-item-separator class="separator" />
+      <q-collapsible icon="shuffle" group="drawerMenu" link dark indent label="Scale-Invariant Feature Transform">
         <q-item @click.native="createNewBlock('Scale-space Extrema Detection', 5)">Scale-space Extrema Detection</q-item>
         <q-item @click.native="createNewBlock('Keypoint Localization', 5)">Keypoint Localization</q-item>
         <q-item @click.native="createNewBlock('Orientation Assignment', 5)">Orientation Assignment</q-item>
         <q-item @click.native="createNewBlock('Keypoint Descriptor', 5)">Keypoint Descriptor</q-item>
       </q-collapsible>
-      <q-collapsible indent label="Scale-Invariant Feature Transform">
-        <q-item @click.native="createNewBlock('Scale-space Extrema Detection', 6)">Scale-space Extrema Detection</q-item>
-        <q-item @click.native="createNewBlock('Keypoint Localization', 6)">Keypoint Localization</q-item>
-        <q-item @click.native="createNewBlock('Orientation Assignment', 6)">Orientation Assignment</q-item>
-        <q-item @click.native="createNewBlock('Keypoint Descriptor', 6)">Keypoint Descriptor</q-item>
-      </q-collapsible>
-      <q-btn
+      <q-btn id="run-btn"
         self-end
         push
-        color="primary"
+        color="light"
         size="xl"
         label="Run"
       />
@@ -238,5 +234,20 @@ export default {
 
 .layout-drawer {
   display: grid;
+}
+
+#spacer {
+  height: 50px;
+}
+
+.separator {
+  margin: 20px 0;
+}
+
+#run-btn {
+  color: #000 !important;
+  margin: 30%;
+  font-size: 1em !important;
+  padding: 5px 40px;
 }
 </style>
