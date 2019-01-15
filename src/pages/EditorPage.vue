@@ -38,10 +38,17 @@ export default {
         },
         {
           id: 3,
-          name: 'Random',
-          type: 1,
-          x: 300,
-          y: 200
+          name: 'Type 2',
+          type: 2,
+          x: 200,
+          y: 100
+        },
+        {
+          id: 4,
+          name: 'Type 3',
+          type: 3,
+          x: 400,
+          y: 100
         }
       ],
       removeBlockTimeout: false,
@@ -52,6 +59,10 @@ export default {
     this.$root.$on('block-created', this.createBlock)
   },
   methods: {
+    // detects the collision of two blocks
+    // if two blocks collide, it checks if they can go together
+    // type 1 and 2, and type 2 and 3 go together; type 1 and 3 don't go together
+    // if the blocks are compatable, they clip together, if not the moving block gets repelled
     detectCollisions: function (block, index) {
       var movingblock = this.blocks[index - 1]
 
@@ -59,9 +70,24 @@ export default {
         (block.x + 50 > movingblock.x - 50 && movingblock.y + 50 > block.y - 50) && (block.x - 50 < movingblock.x + 50 && movingblock.y - 50 < block.y + 50) && !(block.id === movingblock.id)
       )
 
-      if (touching) {
+      var compatable = (
+        (((block.type === 1) && (movingblock.type === 2)) || ((block.type === 2) && (movingblock.type === 3))) ||
+        (((movingblock.type === 1) && (block.type === 2)) || ((movingblock.type === 2) && (block.type === 3)))
+      )
+
+      var incompatable = (
+        ((block.type === 1) && (movingblock.type === 3)) || ((movingblock.type === 1) && (block.type === 3))
+      )
+
+      if (touching && compatable) {
         movingblock.x = block.x + 100
         movingblock.y = block.y
+        this.moving = false
+      }
+
+      if (touching && incompatable) {
+        movingblock.x = block.x
+        movingblock.y = block.y - 150
         this.moving = false
       }
     },
