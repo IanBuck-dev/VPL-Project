@@ -52,7 +52,7 @@ export default {
         }
       ],
       removeBlockTimeout: false,
-      counterForId: 4
+      counterForId: 5
     }
   },
   created () {
@@ -101,7 +101,7 @@ export default {
         this.removeBlockTimeout = true
         setTimeout(function () {
           this.removeBlockTimeout = false
-        }, 500)
+        }, 1500)
       }
     },
     moveStart: function (event, index) {
@@ -135,6 +135,10 @@ export default {
       this.counterForId += 1
       this.blocks.push(newBlock)
       console.log(newBlock)
+    },
+    deleteBlock: function (index) {
+      this.blocks.splice(index, 1)
+      console.log('Block deleted!')
     }
   }
 }

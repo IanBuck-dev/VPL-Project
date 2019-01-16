@@ -2,10 +2,16 @@
 const routes = [
   {
     path: '/',
+    component: () => import('layouts/IndexLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Index.vue') }
+    ]
+  },
+  {
+    path: '/editor',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') },
-      { path: '/editor', component: () => import('pages/EditorPage.vue') }
+      { path: '', component: () => import('pages/EditorPage.vue') }
     ]
   }
 ]
