@@ -26,5 +26,6 @@ export default {
   width: 100px;
   font-size: 1.2em;
   user-select: none;
+  overflow: scroll;
 }
 </style>

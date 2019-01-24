@@ -3,10 +3,11 @@
     <div class="previewindowborder">
       <img src="../../assets/mark-rasmuson-108148-unsplash.jpg" v-bind:style="{width: setWidth? setWidth+'px' : '200px'}">
     </div>
-    <q-slider
+    <q-slider id="zoomBar"
       :model="setWidth"
+      color="amber"
       @input="val => { setWidth = val }"
-      :min="200" :max="1000" :step="100" label :label-value="setWidth+'px'" snap
+      :min="200" :max="1200" :step="100" label :label-value="(setWidth-200)/10+'%'" snap
     />
   </div>
 </template>
@@ -32,5 +33,9 @@ export default {
   align-items: center;
   justify-items: center;
   overflow: hidden;
+}
+
+#zoomBar {
+  padding: 0 30px;
 }
 </style>
