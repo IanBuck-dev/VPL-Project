@@ -1,5 +1,5 @@
 <template>
-  <q-page v-on:block-created="createBlock(name, type)">
+  <q-page v-on:block-created="createBlock(name, type)" :key="componentKey">
      <block
       :key="block.id"
       v-for="block in blocks"
@@ -38,20 +38,40 @@ export default {
         },
         {
           id: 3,
-          name: 'Random',
-          type: 1,
-          x: 300,
-          y: 200
+          name: 'Type 2',
+          type: 2,
+          x: 200,
+          y: 100
+        },
+        {
+          id: 4,
+          name: 'Type 3',
+          type: 3,
+          x: 400,
+          y: 100
+        },
+        {
+          id: 5,
+          name: 'Delete',
+          type: 10,
+          x: 650,
+          y: 500
         }
       ],
       removeBlockTimeout: false,
-      counterForId: 4
+      counterForId: 6,
+      componentKey: 0
     }
   },
   created () {
     this.$root.$on('block-created', this.createBlock)
+    this.$root.$on('new-project', this.forceReload)
   },
   methods: {
+    // detects the collision of two blocks
+    // if two blocks collide, it checks if they can go together
+    // type 1 and 2, and type 2 and 3 go together; type 1 and 3 don't go together
+    // if the blocks are compatable, they clip together, if not the moving block gets repelled
     detectCollisions: function (block, index) {
       var movingblock = this.blocks[index - 1]
 
@@ -59,10 +79,32 @@ export default {
         (block.x + 50 > movingblock.x - 50 && movingblock.y + 50 > block.y - 50) && (block.x - 50 < movingblock.x + 50 && movingblock.y - 50 < block.y + 50) && !(block.id === movingblock.id)
       )
 
-      if (touching) {
+      var compatable = (
+        (((block.type === 1) && (movingblock.type === 2)) || ((block.type === 2) && (movingblock.type === 3))) ||
+        (((movingblock.type === 1) && (block.type === 2)) || ((movingblock.type === 2) && (block.type === 3)))
+      )
+
+      var incompatable = (
+        ((block.type === 1) && (movingblock.type === 3)) || ((movingblock.type === 1) && (block.type === 3))
+      )
+
+      var deleteBlock = (
+        block.type === 10
+      )
+
+      if (touching && compatable) {
         movingblock.x = block.x + 100
         movingblock.y = block.y
         this.moving = false
+      }
+
+      if (touching && incompatable) {
+        movingblock.x = block.x
+        movingblock.y = block.y - 150
+        this.moving = false
+      }
+      if (touching && deleteBlock) {
+        this.deleteBlock(movingblock.id - 1)
       }
     },
     isTouching: function (block, index) {
@@ -75,7 +117,7 @@ export default {
         this.removeBlockTimeout = true
         setTimeout(function () {
           this.removeBlockTimeout = false
-        }, 500)
+        }, 1500)
       }
     },
     moveStart: function (event, index) {
@@ -109,6 +151,14 @@ export default {
       this.counterForId += 1
       this.blocks.push(newBlock)
       console.log(newBlock)
+    },
+    deleteBlock: function (index) {
+      this.blocks.splice(index, 1)
+      console.log('Block deleted!')
+    },
+    forceReload: function () {
+      this.componentKey += 1
+      console.log(this.componentKey)
     }
   }
 }

@@ -56,7 +56,7 @@
             <q-item>
               <q-item-side icon="create_new_folder" inverted color="light" />
               <q-item-main>
-                <q-item-tile label>Start new project</q-item-tile>
+                <q-item-tile label v-on:click="newproject()">Start new Project</q-item-tile>
               </q-item-main>
               <q-item-side right icon="info" color="amber" />
             </q-item>
@@ -222,6 +222,9 @@ export default {
     createNewBlock: function (name, type) {
       this.$root.$emit('block-created', name, type)
       console.log(name + ' ' + type)
+    },
+    newproject: function () {
+      this.$root.$emit('new-project')
     }
   }
 }
