@@ -65,6 +65,7 @@ module.exports = function (ctx) {
         'QCardActions',
         'QSlider',
         'QBtnDropdown',
+        'QBtnGroup',
         'QItemTile'
       ],
       directives: [

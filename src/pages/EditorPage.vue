@@ -1,5 +1,5 @@
 <template>
-  <q-page v-on:block-created="createBlock(name, type)">
+  <q-page v-on:block-created="createBlock(name, type)" :key="componentKey">
      <block
       :key="block.id"
       v-for="block in blocks"
@@ -49,14 +49,23 @@ export default {
           type: 3,
           x: 400,
           y: 100
+        },
+        {
+          id: 5,
+          name: 'Delete',
+          type: 10,
+          x: 650,
+          y: 500
         }
       ],
       removeBlockTimeout: false,
-      counterForId: 5
+      counterForId: 6,
+      componentKey: 0
     }
   },
   created () {
     this.$root.$on('block-created', this.createBlock)
+    this.$root.$on('new-project', this.forceReload)
   },
   methods: {
     // detects the collision of two blocks
@@ -79,6 +88,10 @@ export default {
         ((block.type === 1) && (movingblock.type === 3)) || ((movingblock.type === 1) && (block.type === 3))
       )
 
+      var deleteBlock = (
+        block.type === 10
+      )
+
       if (touching && compatable) {
         movingblock.x = block.x + 100
         movingblock.y = block.y
@@ -89,6 +102,9 @@ export default {
         movingblock.x = block.x
         movingblock.y = block.y - 150
         this.moving = false
+      }
+      if (touching && deleteBlock) {
+        this.deleteBlock(movingblock.id - 1)
       }
     },
     isTouching: function (block, index) {
@@ -139,6 +155,10 @@ export default {
     deleteBlock: function (index) {
       this.blocks.splice(index, 1)
       console.log('Block deleted!')
+    },
+    forceReload: function () {
+      this.componentKey += 1
+      console.log(this.componentKey)
     }
   }
 }
