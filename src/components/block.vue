@@ -1,5 +1,7 @@
 <template>
-  <div class="movable">
+  <div class="movable"
+    v-bind:class="{ deletedBlock: isDeleteBlock, endBlock: isEndBlock, startBlock: isStartBlock}"
+  >
     {{block.id}} <br>
     {{block.name}}
   </div>
@@ -9,7 +11,25 @@
 export default {
   props: [
     'block'
-  ]
+  ],
+  data () {
+    return {
+      isDeleteBlock: false,
+      isEndBlock: false,
+      isStartBlock: false
+    }
+  },
+  created: function () {
+    if (this.block.type === 10) {
+      this.isDeleteBlock = true
+    }
+    if (this.block.type === 9) {
+      this.isEndBlock = true
+    }
+    if (this.block.type === 1) {
+      this.isStartBlock = true
+    }
+  }
 }
 </script>
 
@@ -27,5 +47,15 @@ export default {
   font-size: 1.2em;
   user-select: none;
   overflow: scroll;
+}
+
+.deletedBlock {
+  background-color: black;
+  color: white;
+}
+
+.startBlock {
+  background-color: green;
+  color: white;
 }
 </style>
