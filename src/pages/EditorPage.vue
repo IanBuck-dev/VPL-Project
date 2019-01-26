@@ -1,11 +1,11 @@
 <template>
-  <q-page v-on:block-created="createBlock(name, type)" :key="componentKey">
+  <q-page class="background-editor" v-on:block-created="createBlock(name, type)" :key="componentKey">
      <block
       :key="block.id"
       v-for="block in blocks"
       :block="block"
       :style="{'left': block.x + 'px', 'top': block.y + 'px'}"
-      @mousemove.native="moveActive($event, block.id)"
+      @mousemove.native="moveActive($event, block)"
       @mouseup.native="moveEnd()"
       @mousedown.native="moveStart($event, block.id)"
       ></block>
@@ -24,16 +24,16 @@ export default {
       blocks: [
         {
           id: 1,
-          name: 'Startblock',
+          name: 'Start',
           type: 1,
-          x: 100,
+          x: 50,
           y: 200
         },
         {
           id: 2,
-          name: 'Endblock',
+          name: 'End',
           type: 9,
-          x: 500,
+          x: 1000,
           y: 200
         },
         {
@@ -54,7 +54,7 @@ export default {
           id: 5,
           name: 'Delete',
           type: 10,
-          x: 650,
+          x: 1000,
           y: 500
         }
       ],
@@ -131,17 +131,13 @@ export default {
         this.isTouching(element, index)
       })
     },
-    moveActive: function (event, id) {
-      if (this.moving && !this.removeBlockTimeout) {
-        console.log(event)
-        this.blocks.find(function (element) {
-          return element.id === id
-        }).x = event.x - 50
-        this.blocks.find(function (element) {
-          return element.id === id
-        }).y = event.y - 100
+    moveActive: function (event, block) {
+      var moving = (this.moving && !this.removeBlockTimeout) && !(block.type === 10)
+      if (moving) {
+        block.x = event.x - 50
+        block.y = event.y - 100
         this.blocks.forEach(element => {
-          this.detectCollisions(element, id)
+          this.detectCollisions(element, block.id)
         })
       }
     },
@@ -176,4 +172,7 @@ export default {
 </script>
 
 <style>
+.background-editor {
+  background-color: grey;
+}
 </style>
