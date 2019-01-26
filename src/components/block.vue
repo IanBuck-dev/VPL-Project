@@ -2,8 +2,14 @@
   <div class="movable"
     v-bind:class="{ deletedBlock: isDeleteBlock, endBlock: isEndBlock, startBlock: isStartBlock}"
   >
-  <p v-if="normalBlock">{{block.name}}</p>
-  <q-icon v-if="!normalBlock" name="delete_outline" size="95px" />
+  <div v-if="isStartBlock" class="start">
+    <span class="spacer"></span><p class="startText">{{block.name}}</p><span class="startLine"></span>
+  </div>
+  <div v-if="isEndBlock" class="start">
+    <div class="endLine"></div><div class="spacer"></div><div class="startText">{{block.name}}</div>
+  </div>
+  <div v-if="normalBlock" class="line">{{block.name}}</div>
+  <q-icon v-if="isDeleteBlock" name="delete_outline" size="95px" />
   </div>
 </template>
 
@@ -27,9 +33,11 @@ export default {
     }
     if (this.block.type === 9) {
       this.isEndBlock = true
+      this.normalBlock = false
     }
     if (this.block.type === 1) {
       this.isStartBlock = true
+      this.normalBlock = false
     }
   }
 }
@@ -46,7 +54,6 @@ export default {
   align-items: center;
   padding: 0px;
   position: absolute;
-  border: 2px solid rgb(46, 45, 45);
   border-radius: 5px;
   height: 100px;
   width: 100px;
@@ -64,14 +71,49 @@ export default {
 
 .startBlock {
   background-color: green;
-  color: white;
-  font-size: 2em;
 }
 
 .endBlock {
   background-color: rgb(36, 34, 34);
   color: white;
-  border: none;
-  font-size: 2em;
+}
+
+.line {
+  background-color: rgb(252, 176, 34);
+  height: 20px;
+  width: 100px;
+}
+
+.start {
+  height: 20px;
+  width: 100px;
+  display: flex;
+}
+
+.startText {
+  height: 20px;
+  width: 45px;
+  font-size: 1em;
+}
+
+.startLine {
+  background-color: rgb(252, 176, 34);
+  height: 20px;
+  width: 50px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.endLine {
+  background-color: rgb(252, 176, 34);
+  height: 20px;
+  width: 50px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.spacer {
+  height: 20px;
+  width: 5px;
 }
 </style>

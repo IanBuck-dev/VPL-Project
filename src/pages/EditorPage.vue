@@ -86,8 +86,13 @@ export default {
         (((movingblock.type === 1) && (block.type === 2)) || ((movingblock.type === 2) && (block.type === 3)))
       )
 
+      var endBlock = (
+        (((movingblock.type === 3) && (block.type === 9)) || ((movingblock.type === 9) && (block.type === 3)))
+      )
+
       var incompatable = (
-        ((block.type === 1) && (movingblock.type === 3)) || ((movingblock.type === 1) && (block.type === 3))
+        (((block.type === 1) && (movingblock.type === 3)) || ((movingblock.type === 1) && (block.type === 3))) ||
+        (((block.type === 2) && (movingblock.type === 9)) || ((movingblock.type === 2) && (block.type === 9)))
       )
 
       var deleteBlock = (
@@ -95,7 +100,17 @@ export default {
       )
 
       if (touching && compatable) {
-        movingblock.x = block.x + 100
+        if (movingblock.x > block.x) {
+          movingblock.x = block.x + 100
+        } else {
+          movingblock.x = block.x - 100
+        }
+        movingblock.y = block.y
+        this.moving = false
+      }
+
+      if (touching && endBlock) {
+        movingblock.x = block.x - 100
         movingblock.y = block.y
         this.moving = false
       }
@@ -114,14 +129,16 @@ export default {
         return element.id === id
       })
       var touching = (
-        (block.x + 50 > movingblock.x - 50 && movingblock.y + 50 > block.y - 50) && (block.x - 50 < movingblock.x + 50 && movingblock.y - 50 < block.y + 50) && !(block.id === movingblock.id)
+        (((block.x + 50 > movingblock.x - 50 && movingblock.y + 50 > block.y - 50) && (block.x - 50 < movingblock.x + 50 && movingblock.y - 50 < block.y + 50)) ||
+        ((block.x - 50 > movingblock.x + 50 && movingblock.y - 50 > block.y + 50) && (block.x + 50 < movingblock.x - 50 && movingblock.y + 50 < block.y - 50))) &&
+        !(block.id === movingblock.id)
       )
 
       if (touching) {
         this.removeBlockTimeout = true
         setTimeout(function () {
           this.removeBlockTimeout = false
-        }, 1500)
+        }, 2500)
       }
     },
     moveStart: function (event, index) {
