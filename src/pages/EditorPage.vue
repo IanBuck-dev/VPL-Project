@@ -65,7 +65,31 @@ export default {
       ],
       removeBlockTimeout: false,
       counterForId: 6,
-      componentKey: 0
+      componentKey: 0,
+      notify: {
+        label: 'Confirm',
+        icon: 'done_all',
+        handler: (index) => {
+          this.$q.dialog({
+            title: 'Confirm delete',
+            message: 'Are you sure you want to delete this block?',
+            ok: 'Agree',
+            cancel: 'Disagree'
+          }).then(() => {
+            this.$q.notify({
+              message: 'Agreed!',
+              position: 'bottom-left'
+            })
+            this.blocks.splice(index, 1)
+          }).catch(() => {
+            this.$q.notify({
+              message: 'Disagreed!',
+              position: 'bottom-left'
+            })
+            this.blocks[index].y = this.blocks[index].y - 100
+          })
+        }
+      }
     }
   },
   created () {
@@ -134,6 +158,11 @@ export default {
         movingblock.x = block.x
         movingblock.y = block.y - 150
         this.moving = false
+        this.$q.notify({
+          message: 'These two blocks don\'t work together!',
+          position: 'bottom-left',
+          color: 'negative'
+        })
       }
       if (touching && deleteBlock) {
         this.deleteBlock(movingblock.id)
@@ -194,9 +223,7 @@ export default {
     deleteBlock: function (id) {
       var blockToDelete = this.blocks.findIndex(x => x.id === id)
 
-      console.log(blockToDelete)
-      this.blocks.splice(blockToDelete, 1)
-      console.log('Block deleted!')
+      this.notify.handler(blockToDelete)
     },
     forceReload: function () {
       this.componentKey += 1

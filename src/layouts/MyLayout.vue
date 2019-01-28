@@ -221,10 +221,18 @@ export default {
     openURL,
     createNewBlock: function (name, type) {
       this.$root.$emit('block-created', name, type)
+      this.notifyCreatedBlock(name, type)
       console.log(name + ' ' + type)
     },
     newproject: function () {
       this.$root.$emit('new-project')
+    },
+    notifyCreatedBlock: function (name, type) {
+      this.$q.notify({
+        message: 'You just created a new block: ' + name + ' of type ' + type + '!',
+        position: 'bottom-left',
+        color: 'positive'
+      })
     }
   }
 }
