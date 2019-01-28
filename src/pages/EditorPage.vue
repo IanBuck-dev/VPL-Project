@@ -88,7 +88,8 @@ export default {
 
       var compatable = (
         (((block.type === 1) && (movingblock.type === 2)) || ((block.type === 2) && (movingblock.type === 3))) ||
-        (((movingblock.type === 1) && (block.type === 2)) || ((movingblock.type === 2) && (block.type === 3)))
+        (((movingblock.type === 1) && (block.type === 2)) || ((movingblock.type === 2) && (block.type === 3))) ||
+        (((movingblock.type === 2) && (block.type === 2)) || ((movingblock.type === 2) && (block.type === 2)))
       )
 
       var endBlock = (
@@ -182,10 +183,12 @@ export default {
         name: name,
         type: type,
         x: 200,
-        y: 50
+        y: 50,
+        connected: false
       }
       this.counterForId += 1
-      this.blocks.push(newBlock)
+      var newIndex = this.blocks.length
+      this.$set(this.blocks, newIndex, newBlock)
       console.log(newBlock)
     },
     deleteBlock: function (id) {

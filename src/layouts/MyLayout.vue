@@ -10,30 +10,30 @@
       <previewWindow></previewWindow>
       <div id="spacer" />
       <q-collapsible group="drawerMenu" link icon="tune" label="Pre-Processing" dark>
-        <q-item @click.native="createNewBlock('Edge Extraction', 2)" >Edge Extraction</q-item>
-        <q-item @click.native="createNewBlock('Denoising', 2)">Denoising</q-item>
-        <q-item @click.native="createNewBlock('Blur Reduction', 2)">Blur Reduction</q-item>
-        <q-item @click.native="createNewBlock('Sharpening', 2)">Sharpening</q-item>
-        <q-item @click.native="createNewBlock('Brightness', 2)">Brightness</q-item>
-        <q-item @click.native="createNewBlock('Converting Color Spaces', 2)">Converting Color Spaces</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('Edge Extraction', 2)" >Edge Extraction</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('Denoising', 2)">Denoising</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('Blur Reduction', 2)">Blur Reduction</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('Sharpening', 2)">Sharpening</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('Brightness', 2)">Brightness</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('Converting Color Spaces', 2)">Converting Color Spaces</q-item>
       </q-collapsible>
       <q-item-separator class="separator" />
       <q-collapsible icon="subject" group="drawerMenu" link dark indent label="Line Segmentation">
-        <q-item @click.native="createNewBlock('Text Split', 3)">Text Split</q-item>
-        <q-item @click.native="createNewBlock('Picture Split', 3)">Picture Split</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('Text Split', 2)">Text Split</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('Picture Split', 2)">Picture Split</q-item>
       </q-collapsible>
       <q-item-separator class="separator" />
       <q-collapsible icon="visibility" group="drawerMenu" link dark indent label="Optical Character Recognition">
-        <q-item @click.native="createNewBlock('Word and Char Processing', 4)">Word and Character Processing</q-item>
-        <q-item @click.native="createNewBlock('Skew', 4)">Skew</q-item>
-        <q-item @click.native="createNewBlock('SIFT', 4)">SIFT</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('Word and Char Processing', 3)">Word and Character Processing</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('Skew', 3)">Skew</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('SIFT', 3)">SIFT</q-item>
       </q-collapsible>
       <q-item-separator class="separator" />
       <q-collapsible icon="shuffle" group="drawerMenu" link dark indent label="Scale-Invariant Feature Transform">
-        <q-item @click.native="createNewBlock('Scale-space Extrema Detection', 5)">Scale-space Extrema Detection</q-item>
-        <q-item @click.native="createNewBlock('Keypoint Localization', 5)">Keypoint Localization</q-item>
-        <q-item @click.native="createNewBlock('Orientation Assignment', 5)">Orientation Assignment</q-item>
-        <q-item @click.native="createNewBlock('Keypoint Descriptor', 5)">Keypoint Descriptor</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('Scale-space Extrema Detection', 3)">Scale-space Extrema Detection</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('Keypoint Localization', 3)">Keypoint Localization</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('Orientation Assignment', 3)">Orientation Assignment</q-item>
+        <q-item class="menu-button" @click.native="createNewBlock('Keypoint Descriptor', 3)">Keypoint Descriptor</q-item>
       </q-collapsible>
       <q-btn id="run-btn"
         self-end
@@ -245,6 +245,18 @@ export default {
 
 .separator {
   margin: 20px 0;
+}
+
+.menu-button {
+  transition: background-color 0.25s;
+}
+
+.menu-button:hover {
+  background-color: gray;
+}
+
+.menu-button:active {
+  background-color: rgb(16, 245, 16);
 }
 
 #run-btn {

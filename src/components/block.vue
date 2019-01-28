@@ -1,5 +1,5 @@
 <template>
-  <div class="movable"
+  <div class="movable shadow-6"
     v-bind:class="{ deletedBlock: isDeleteBlock, endBlock: isEndBlock, startBlock: isStartBlock}"
   >
   <div v-if="isStartBlock" class="start">
