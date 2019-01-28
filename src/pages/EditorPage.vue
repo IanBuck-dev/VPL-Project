@@ -27,35 +27,40 @@ export default {
           name: 'Start',
           type: 1,
           x: 50,
-          y: 200
+          y: 200,
+          connected: false
         },
         {
           id: 2,
           name: 'End',
           type: 9,
           x: 1000,
-          y: 200
+          y: 200,
+          connected: false
         },
         {
           id: 3,
           name: 'Type 2',
           type: 2,
           x: 200,
-          y: 100
+          y: 100,
+          connected: false
         },
         {
           id: 4,
           name: 'Type 3',
           type: 3,
           x: 400,
-          y: 100
+          y: 100,
+          connected: false
         },
         {
           id: 5,
           name: 'Delete',
           type: 10,
           x: 1000,
-          y: 500
+          y: 500,
+          connected: false
         }
       ],
       removeBlockTimeout: false,
@@ -107,12 +112,21 @@ export default {
         }
         movingblock.y = block.y
         this.moving = false
+        movingblock.connected = true
+        block.connected = true
       }
 
       if (touching && endBlock) {
-        movingblock.x = block.x - 100
+        console.log(movingblock.type)
+        if (movingblock.type === 9) {
+          movingblock.x = block.x + 100
+        } else {
+          movingblock.x = block.x - 100
+        }
         movingblock.y = block.y
         this.moving = false
+        movingblock.connected = true
+        block.connected = true
       }
 
       if (touching && incompatable) {
@@ -151,6 +165,7 @@ export default {
     moveActive: function (event, block) {
       var moving = (this.moving && !this.removeBlockTimeout) && !(block.type === 10)
       if (moving) {
+        block.connected = false
         block.x = event.x - 50
         block.y = event.y - 100
         this.blocks.forEach(element => {

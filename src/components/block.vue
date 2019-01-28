@@ -3,12 +3,12 @@
     v-bind:class="{ deletedBlock: isDeleteBlock, endBlock: isEndBlock, startBlock: isStartBlock}"
   >
   <div v-if="isStartBlock" class="start">
-    <span class="spacer"></span><p class="startText">{{block.name}}</p><span class="startLine"></span>
+    <span class="spacer"></span><p class="startText">{{block.name}}</p><div v-bind:class="{'connected': block.connected, 'disconnected': !block.connected}" class="startLine"></div>
   </div>
   <div v-if="isEndBlock" class="start">
-    <div class="endLine"></div><div class="spacer"></div><div class="startText">{{block.name}}</div>
+    <div v-bind:class="{'connected': block.connected, 'disconnected': !block.connected}" class="endLine"></div><div class="spacer"></div><div class="startText">{{block.name}}</div>
   </div>
-  <div v-if="normalBlock" class="line">{{block.name}}</div>
+  <div v-bind:class="{'connected': block.connected, 'disconnected': !block.connected}" v-if="normalBlock" class="line">{{block.name}}</div>
   <q-icon v-if="isDeleteBlock" name="delete_outline" size="95px" />
   </div>
 </template>
@@ -23,7 +23,8 @@ export default {
       normalBlock: true,
       isDeleteBlock: false,
       isEndBlock: false,
-      isStartBlock: false
+      isStartBlock: false,
+      isConnected: false
     }
   },
   created: function () {
@@ -79,9 +80,9 @@ export default {
 }
 
 .line {
-  background-color: rgb(252, 176, 34);
   height: 20px;
   width: 100px;
+  color: black;
 }
 
 .start {
@@ -97,7 +98,6 @@ export default {
 }
 
 .startLine {
-  background-color: rgb(252, 176, 34);
   height: 20px;
   width: 50px;
   border-top-left-radius: 8px;
@@ -105,11 +105,18 @@ export default {
 }
 
 .endLine {
-  background-color: rgb(252, 176, 34);
   height: 20px;
   width: 50px;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
+}
+
+.connected {
+  background-color: rgb(252, 176, 34);
+}
+
+.disconnected {
+  background-color: rgb(248, 226, 184);
 }
 
 .spacer {
