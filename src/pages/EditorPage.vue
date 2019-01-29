@@ -66,6 +66,7 @@ export default {
       removeBlockTimeout: false,
       counterForId: 6,
       componentKey: 0,
+      newBlockTouching: false,
       notify: {
         label: 'Confirm',
         icon: 'done_all',
@@ -180,6 +181,7 @@ export default {
 
       if (touching) {
         this.removeBlockTimeout = true
+        this.newBlockTouching = true
         setTimeout(function () {
           this.removeBlockTimeout = false
         }, 2500)
@@ -212,12 +214,13 @@ export default {
         name: name,
         type: type,
         x: 200,
-        y: 50,
+        y: 400,
         connected: false
       }
       this.counterForId += 1
       var newIndex = this.blocks.length
       this.$set(this.blocks, newIndex, newBlock)
+
       console.log(newBlock)
     },
     deleteBlock: function (id) {
