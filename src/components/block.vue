@@ -8,7 +8,13 @@
   <div v-if="isEndBlock" class="start">
     <div v-bind:class="{'connected': block.connected, 'disconnected': !block.connected}" class="endLine"></div><div class="spacer"></div><div class="startText">{{block.name}}</div>
   </div>
-  <div v-bind:class="{'connected': block.connected, 'disconnected': !block.connected}" v-if="normalBlock" class="line">{{block.name}}</div>
+  <div v-if="normalBlock">
+    <div class="block-items">
+      <div>{{block.type}}</div>
+      <div>{{block.name}}</div>
+    </div>
+    <div v-bind:class="{'connected': block.connected, 'disconnected': !block.connected}" class="line"></div>
+  </div>
   <q-icon v-if="isDeleteBlock" name="delete_outline" size="95px" />
   </div>
 </template>
@@ -50,9 +56,8 @@ export default {
   background-color: rgb(36, 34, 34);
   color: lightgray;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
   padding: 0px;
   position: absolute;
   border-radius: 5px;
@@ -61,6 +66,14 @@ export default {
   font-size: 1em;
   user-select: none;
   overflow: hidden;
+}
+
+.block-items {
+  height: 40px;
+  width: 100px;
+  color: white;
+  overflow: hidden;
+  word-break: break-all;
 }
 
 .deletedBlock {
@@ -83,12 +96,14 @@ export default {
   height: 20px;
   width: 100px;
   color: black;
+  align-self: flex-end;
 }
 
 .start {
   height: 20px;
   width: 100px;
   display: flex;
+  align-self: center;
 }
 
 .startText {
@@ -112,6 +127,7 @@ export default {
 }
 
 .connected {
+  transition: background-color 1s;
   background-color: rgb(252, 176, 34);
 }
 
