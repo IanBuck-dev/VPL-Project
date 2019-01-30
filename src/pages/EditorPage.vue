@@ -238,6 +238,6 @@ export default {
 
 <style>
 .background-editor {
-  background-color: grey;
+  background: linear-gradient(45deg, #45484d 0%,#000000 100%);
 }
 </style>
