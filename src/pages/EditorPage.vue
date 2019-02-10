@@ -1,5 +1,5 @@
 <template>
-  <q-page class="background-editor" v-on:block-created="createBlock(name, type)" :key="componentKey">
+  <q-page class="background-editor" v-on:block-created="createBlock(name, type)">
      <block
       :key="block.id"
       v-for="block in blocks"
@@ -61,11 +61,18 @@ export default {
           x: 1000,
           y: 500,
           connected: false
+        },
+        {
+          id: 6,
+          name: '1. Procedure',
+          type: 5,
+          x: 700,
+          y: 500,
+          connected: false
         }
       ],
       removeBlockTimeout: false,
-      counterForId: 6,
-      componentKey: 0,
+      counterForId: 7,
       newBlockTouching: false,
       notify: {
         label: 'Confirm',
@@ -87,6 +94,19 @@ export default {
               message: 'Disagreed!',
               position: 'bottom-left'
             })
+            this.blocks[index].y = this.blocks[index].y - 100
+          })
+        }
+      },
+      notifyCantDelete: {
+        label: 'Delete unsuccesfull',
+        icon: 'done_all',
+        handler: (index) => {
+          this.$q.dialog({
+            title: 'Can\'t delete',
+            message: 'You can\'t delete this block!',
+            ok: 'Agree'
+          }).then(() => {
             this.blocks[index].y = this.blocks[index].y - 100
           })
         }
@@ -112,9 +132,10 @@ export default {
       )
 
       var compatable = (
-        (((block.type === 1) && (movingblock.type === 2)) || ((block.type === 2) && (movingblock.type === 3))) ||
-        (((movingblock.type === 1) && (block.type === 2)) || ((movingblock.type === 2) && (block.type === 3))) ||
-        (((movingblock.type === 2) && (block.type === 2)) || ((movingblock.type === 2) && (block.type === 2)))
+        (((block.type === 1) && (movingblock.type === 2)) || ((block.type === 2) && (movingblock.type === 1))) ||
+        (((movingblock.type === 3) && (block.type === 2)) || ((movingblock.type === 2) && (block.type === 3))) ||
+        (((movingblock.type === 2) && (block.type === 2)) || ((movingblock.type === 2) && (block.type === 2))) ||
+        (((movingblock.type === 3) && (block.type === 3)) || ((movingblock.type === 3) && (block.type === 3)))
       )
 
       var endBlock = (
@@ -123,7 +144,8 @@ export default {
 
       var incompatable = (
         (((block.type === 1) && (movingblock.type === 3)) || ((movingblock.type === 1) && (block.type === 3))) ||
-        (((block.type === 2) && (movingblock.type === 9)) || ((movingblock.type === 2) && (block.type === 9)))
+        (((block.type === 2) && (movingblock.type === 9)) || ((movingblock.type === 2) && (block.type === 9))) ||
+        (((block.type === 1) && (movingblock.type === 9)) || ((movingblock.type === 1) && (block.type === 9)))
       )
 
       var deleteBlock = (
@@ -166,7 +188,7 @@ export default {
         })
       }
       if (touching && deleteBlock) {
-        this.deleteBlock(movingblock.id)
+        this.deleteBlock(movingblock)
       }
     },
     isTouching: function (block, id) {
@@ -223,14 +245,17 @@ export default {
 
       console.log(newBlock)
     },
-    deleteBlock: function (id) {
-      var blockToDelete = this.blocks.findIndex(x => x.id === id)
-
-      this.notify.handler(blockToDelete)
+    deleteBlock: function (block) {
+      var deletable = !((block.type === 1) || (block.type === 9))
+      var index = this.blocks.findIndex(x => x.id === block.id)
+      if (deletable) {
+        this.notify.handler(index)
+      } else {
+        this.notifyCantDelete.handler(index)
+      }
     },
     forceReload: function () {
-      this.componentKey += 1
-      console.log(this.componentKey)
+      this.$q.forceReload()
     }
   }
 }

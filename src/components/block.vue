@@ -30,7 +30,20 @@ export default {
       isDeleteBlock: false,
       isEndBlock: false,
       isStartBlock: false,
-      isConnected: false
+      isConnected: false,
+      notifyCantDelete: {
+        label: 'Edit block:',
+        icon: 'done_all',
+        handler: () => {
+          this.$q.dialog({
+            title: 'Edit block fields',
+            message: 'You can\'t delete this block!',
+            ok: 'Agree'
+          }).then(() => {
+            console.log('Input succesful')
+          })
+        }
+      }
     }
   },
   created: function () {
