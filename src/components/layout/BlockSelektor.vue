@@ -52,10 +52,11 @@
       </q-collapsible>
       <q-btn id="run-btn"
         self-end
-        push
-        color="light"
+        v-bind:class="{'green-button': !buttonEnabled, 'light-button': buttonEnabled}"
         size="xl"
         label="Run"
+        :disabled=buttonEnabled
+        @click="finishExecution()"
       />
     </q-layout-drawer>
 </template>
@@ -71,8 +72,35 @@ export default {
   data () {
     return {
       setWidth: 200,
-      rightDrawerOpen: this.$q.platform.is.desktop
+      rightDrawerOpen: this.$q.platform.is.desktop,
+      buttonEnabled: true,
+      buttonDialog: {
+        label: 'Confirm',
+        icon: 'done_all',
+        handler: () => {
+          this.$q.dialog({
+            title: 'Confirm execution',
+            message: 'Are you sure you want to execute the program?',
+            ok: 'Agree',
+            cancel: 'Disagree'
+          }).then(() => {
+            this.$q.notify({
+              message: 'Executed succesfully!',
+              position: 'bottom-left',
+              color: 'positive'
+            })
+          }).catch(() => {
+            this.$q.notify({
+              message: 'Disagreed!',
+              position: 'bottom-left'
+            })
+          })
+        }
+      }
     }
+  },
+  created () {
+    this.$root.$on('ready-to-execute', this.enableBlock)
   },
   methods: {
     createNewBlock: function (name, type) {
@@ -86,10 +114,31 @@ export default {
         position: 'bottom-left',
         color: 'positive'
       })
+    },
+    enableBlock: function () {
+      this.buttonEnabled = false
+      console.log('Event!!!')
+      this.$q.notify({
+        message: 'You are now able to execute your program!',
+        position: 'bottom-left',
+        color: 'positive'
+      })
+    },
+    finishExecution: function () {
+      if (this.buttonEnabled === false) {
+        this.buttonDialog.handler()
+      }
     }
   }
 }
 </script>
 
 <style>
+.green-button {
+  background-color: #66CC66;
+}
+
+.light-button {
+  background-color: #fff;
+}
 </style>

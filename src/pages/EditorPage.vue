@@ -64,7 +64,7 @@ export default {
         },
         {
           id: 6,
-          name: '1. Procedure',
+          name: 'Procedure',
           type: 5,
           x: 700,
           y: 500,
@@ -175,6 +175,7 @@ export default {
         this.moving = false
         movingblock.connected = true
         block.connected = true
+        this.$root.$emit('ready-to-execute')
       }
 
       if (touching && incompatable) {

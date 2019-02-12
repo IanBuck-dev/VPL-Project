@@ -6,12 +6,11 @@
     <span class="spacer"></span><p class="startText">{{block.name}}</p><div v-bind:class="{'connected': block.connected, 'disconnected': !block.connected}" class="startLine"></div>
   </div>
   <div v-if="isEndBlock" class="start">
-    <div v-bind:class="{'connected': block.connected, 'disconnected': !block.connected}" class="endLine"></div><div class="spacer"></div><div class="startText">{{block.name}}</div>
+    <div v-bind:class="{'connected': block.connected, 'disconnected': !block.connected}" class="endLine"></div><div class="spacer"></div><div class="endText">{{block.name}}</div>
   </div>
   <div v-if="normalBlock">
     <div class="block-items">
-      <div>{{block.type}}</div>
-      <div>{{block.name}}</div>
+      <div class="column"><div class="self-start">{{block.type}}</div><div class="row"><div>{{block.name}}</div><q-icon @click.native="parameterDialog.handler()" class="self-end" name= 'more_vert' size='20px'></q-icon></div></div>
     </div>
     <div v-bind:class="{'connected': block.connected, 'disconnected': !block.connected}" class="line"></div>
   </div>
@@ -31,16 +30,25 @@ export default {
       isEndBlock: false,
       isStartBlock: false,
       isConnected: false,
-      notifyCantDelete: {
+      parameterDialog: {
         label: 'Edit block:',
         icon: 'done_all',
         handler: () => {
           this.$q.dialog({
-            title: 'Edit block fields',
-            message: 'You can\'t delete this block!',
-            ok: 'Agree'
-          }).then(() => {
-            console.log('Input succesful')
+            title: 'Edit block parameters',
+            message: 'Enter parameters',
+            prompt: {
+              model: '',
+              type: 'text'
+            },
+            cancel: true,
+            color: 'bg-amber-9'
+          }).then(data => {
+            this.parameter = data
+            this.$q.notify({
+              message: `Saved parameter: "${data}"`,
+              position: 'bottom-left'
+            })
           })
         }
       }
@@ -97,7 +105,8 @@ export default {
 }
 
 .startBlock {
-  background-color: green;
+  background-color: rgb(73, 72, 72);
+  color: white;
 }
 
 .endBlock {
@@ -120,6 +129,12 @@ export default {
 }
 
 .startText {
+  height: 20px;
+  width: 45px;
+  font-size: 1em;
+}
+
+.endText {
   height: 20px;
   width: 45px;
   font-size: 1em;
