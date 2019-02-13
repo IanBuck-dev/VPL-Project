@@ -66,7 +66,8 @@ module.exports = function (ctx) {
         'QSlider',
         'QBtnDropdown',
         'QBtnGroup',
-        'QItemTile'
+        'QItemTile',
+        'QTooltip'
       ],
       directives: [
         'Ripple'

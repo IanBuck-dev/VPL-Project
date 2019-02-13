@@ -10,12 +10,36 @@
       <div id="spacer" />
       <q-collapsible group="layoutMenu" link icon="add_circle_outline" label="Select new Blocks" dark>
         <q-collapsible group="drawerMenu" link icon="tune" label="Pre-Processing" dark>
-            <q-item class="menu-button" @click.native="createNewBlock('Edge Extraction', 2)" >Edge Extraction</q-item>
-            <q-item class="menu-button" @click.native="createNewBlock('Denoising', 2)">Denoising</q-item>
-            <q-item class="menu-button" @click.native="createNewBlock('Blur Reduction', 2)">Blur Reduction</q-item>
-            <q-item class="menu-button" @click.native="createNewBlock('Sharpening', 2)">Sharpening</q-item>
-            <q-item class="menu-button" @click.native="createNewBlock('Brightness', 2)">Brightness</q-item>
-            <q-item class="menu-button" @click.native="createNewBlock('Converting Color Spaces', 2)">Converting Color Spaces</q-item>
+            <q-item class="menu-button" @click.native="createNewBlock('Edge Extraction', 2)" >Edge Extraction
+              <q-tooltip :delay="500" anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                <strong>Here</strong>you can find more infos to the block! <q-icon name="info" />
+              </q-tooltip>
+            </q-item>
+            <q-item class="menu-button" @click.native="createNewBlock('Denoising', 2)">Denoising
+              <q-tooltip :delay="500" anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                <strong>Here</strong>you can find more infos to the block! <q-icon name="info" />
+              </q-tooltip>
+            </q-item>
+            <q-item class="menu-button" @click.native="createNewBlock('Blur Reduction', 2)">Blur Reduction
+              <q-tooltip :delay="500" anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                <strong>Here</strong>you can find more infos to the block! <q-icon name="info" />
+              </q-tooltip>
+            </q-item>
+            <q-item class="menu-button" @click.native="createNewBlock('Sharpening', 2)">Sharpening
+              <q-tooltip :delay="500" anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                <strong>Here</strong>you can find more infos to the block! <q-icon name="info" />
+              </q-tooltip>
+            </q-item>
+            <q-item class="menu-button" @click.native="createNewBlock('Brightness', 2)">Brightness
+              <q-tooltip :delay="500" anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                <strong>Here</strong>you can find more infos to the block! <q-icon name="info" />
+              </q-tooltip>
+            </q-item>
+            <q-item class="menu-button" @click.native="createNewBlock('Converting Color Spaces', 2)">Converting Color Spaces
+              <q-tooltip :delay="500" anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                <strong>Here</strong>you can find more infos to the block! <q-icon name="info" />
+              </q-tooltip>
+            </q-item>
         </q-collapsible>
         <q-item-separator class="separator" />
         <q-collapsible icon="subject" group="drawerMenu" link dark indent label="Line Segmentation">
@@ -44,7 +68,7 @@
         </q-collapsible>
       </q-collapsible>
       <q-item-separator class="separator" />
-      <q-collapsible group="layoutMenu" link icon="add_circle_outline" label="Select Procedures" dark>
+      <q-collapsible group="layoutMenu" link icon="list" label="Select Procedures" dark>
         <q-item class="menu-button" @click.native="createNewBlock('Ancient Egypt Scripts', 3)">Ancient Egypt Scripts</q-item>
         <q-item class="menu-button" @click.native="createNewBlock('Greek Stone Plates', 3)">Greek Stone Plates</q-item>
         <q-item class="menu-button" @click.native="createNewBlock('Arabic Scripts', 3)">Arabic Scripts</q-item>

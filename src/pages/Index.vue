@@ -1,7 +1,12 @@
 <template>
-  <q-page class="column justify-center items-center index-background">
-    <img src="../assets/Wire_logo.svg" width="200px" height="200px">
-    <q-btn label="New Project" class="margin-class bg-amber-9" v-on:click="newproject()"/>
+  <q-page class="row justify-center items-center index-background">
+    <img src="../assets/Wire_logo.svg" width="225px" height="225px">
+    <div class="column">
+      <q-btn label="New Project" class="margin-class bg-amber-9" v-on:click="newproject()"/>
+      <q-btn label="Load Project" class="margin-class bg-amber-9"/>
+      <q-btn label="First Steps" class="margin-class bg-amber-9"/>
+      <q-btn label="Documentation" class="margin-class bg-amber-9"/>
+    </div>
   </q-page>
 </template>
 

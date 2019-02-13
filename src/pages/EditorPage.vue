@@ -28,7 +28,8 @@ export default {
           type: 1,
           x: 50,
           y: 200,
-          connected: false
+          connected: false,
+          canBeConnected: false
         },
         {
           id: 2,
@@ -36,7 +37,8 @@ export default {
           type: 9,
           x: 1000,
           y: 200,
-          connected: false
+          connected: false,
+          canBeConnected: false
         },
         {
           id: 3,
@@ -44,7 +46,8 @@ export default {
           type: 2,
           x: 200,
           y: 100,
-          connected: false
+          connected: false,
+          canBeConnected: false
         },
         {
           id: 4,
@@ -52,7 +55,8 @@ export default {
           type: 3,
           x: 400,
           y: 100,
-          connected: false
+          connected: false,
+          canBeConnected: false
         },
         {
           id: 5,
@@ -60,15 +64,17 @@ export default {
           type: 10,
           x: 1000,
           y: 500,
-          connected: false
+          connected: false,
+          canBeConnected: false
         },
         {
           id: 6,
           name: 'Procedure',
-          type: 5,
+          type: 3,
           x: 700,
           y: 500,
-          connected: false
+          connected: false,
+          canBeConnected: false
         }
       ],
       removeBlockTimeout: false,
@@ -110,12 +116,27 @@ export default {
             this.blocks[index].y = this.blocks[index].y - 100
           })
         }
+      },
+      notifyUpload: {
+        label: 'Upload Data',
+        icon: 'cloud_upload',
+        handler: () => {
+          this.$q.dialog(
+            {
+              title: 'Upload data',
+              message: 'Here you can upload data like pictures. The first one will be visible in the preview window!',
+              ok: 'Agree',
+              cancel: 'Cancel'
+            }
+          ).then(() => {})
+        }
       }
     }
   },
   created () {
     this.$root.$on('block-created', this.createBlock)
     this.$root.$on('new-project', this.forceReload)
+    this.notifyUpload.handler()
   },
   methods: {
     // detects the collision of two blocks
@@ -151,6 +172,10 @@ export default {
       var deleteBlock = (
         block.type === 10
       )
+
+      if (compatable) {
+        block.canBeConnected = true
+      }
 
       if (touching && compatable) {
         if (movingblock.x > block.x) {
@@ -230,6 +255,9 @@ export default {
     },
     moveEnd: function () {
       this.moving = false
+      this.blocks.forEach(element => {
+        element.canBeConnected = false
+      })
     },
     createBlock: function (name, type) {
       var newBlock = {
