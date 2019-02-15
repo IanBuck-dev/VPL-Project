@@ -3,10 +3,10 @@
     v-bind:class="{ deletedBlock: isDeleteBlock, endBlock: isEndBlock, startBlock: isStartBlock}"
   >
   <div v-if="isStartBlock" class="start">
-    <span class="spacer"></span><p class="startText">{{block.name}}</p><div v-bind:class="{'connected': block.connected, 'canbeconnected': block.canBeConnected, 'startLine': !block.canBeConnected}"></div>
+    <span class="spacer"></span><p class="startText">{{block.name}}</p><div v-bind:class="{'connected': block.connected, 'canbeconnected': block.canBeConnected, 'startLine': block.connected, 'startLineDisconnected': !block.connected}"></div>
   </div>
   <div v-if="isEndBlock" class="start">
-    <div v-bind:class="{'connected': block.connected, 'canbeconnected': block.canBeConnected, 'endLine': !block.canBeConnected}"></div><div class="spacer"></div><div class="endText">{{block.name}}</div>
+    <div v-bind:class="{'connected': block.connected, 'canbeconnected': block.canBeConnected, 'endLine': block.connected, 'endLineDisconnected': !block.connected}"></div><div class="spacer"></div><div class="endText">{{block.name}}</div>
   </div>
   <div v-if="normalBlock">
     <div class="block-items">
@@ -150,7 +150,23 @@ export default {
   background-color: rgb(248, 226, 184);
 }
 
+.startLineDisconnected {
+  height: 20px;
+  width: 50px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  background-color: rgb(248, 226, 184);
+}
+
 .endLine {
+  height: 20px;
+  width: 50px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: rgb(248, 226, 184);
+}
+
+.endLineDisconnected {
   height: 20px;
   width: 50px;
   border-top-right-radius: 8px;

@@ -177,6 +177,10 @@ export default {
         block.canBeConnected = true
       }
 
+      if (endBlock) {
+        block.canBeConnected = true
+      }
+
       if (touching && compatable) {
         if (movingblock.x > block.x) {
           movingblock.x = block.x + 100
